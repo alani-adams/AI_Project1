@@ -23,6 +23,9 @@ int main(int argc, const char * argv[]) {
     
 vector:KnapsackItems
     
+    Knapsack knapsack;
+    vector <Item> items;
+    Item temp;
     fstream fs;
     fs.open (argv[0]);
     if (fs.is_open())
@@ -33,15 +36,20 @@ vector:KnapsackItems
         stringstream ss(line1);
         ss >> maxWeight;
         
+        knapsack.setLimit(<int>maxWeight);
         
-        while(getline(fs, ))//get all the words
+        while(getline(fs, line1))//get all the items
         {
-            string word;
-            stringstream ss(word);
-            while(ss >> word)
-            {
-                
-            }
+            string name;
+            string weight;
+            string value;
+            ss >> name;
+            temp.setName(name);
+            ss >> weight;
+            temp.setWeight(weight);
+            ss >> value;
+            temp.setValue(value);
+            items.insert(temp);
         }
     }
     fs.close();
