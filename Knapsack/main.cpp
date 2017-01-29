@@ -2,8 +2,8 @@
 //  main.cpp
 //  AI_Project1
 //
-//  Created by Alani Peters on 1/19/17.
-//  Copyright © 2017 Alani Peters. All rights reserved.
+//  Created by Alani Peters & Cole Spears on 1/19/17.
+//  Copyright © 2017 Alani Peters & Cole Spears. All rights reserved.
 //
 
 #include <iostream>
