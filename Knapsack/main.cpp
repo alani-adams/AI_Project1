@@ -18,6 +18,12 @@ using namespace std;
 #include "Header.h"
 
 
+void printItemVector(vector<Item> items)
+{
+    for (int i=0; i < items.size(); i++){
+        cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue() << endl;
+    }
+}
 
 int main() {
     
@@ -62,29 +68,34 @@ int main() {
                 count++;
             }
             
-            cout<<"name "<<name<<endl;
+            //cout<<"name "<<name<<endl;
             temp.setName(name);
             int cost1 = atoi(cost.c_str());
-            cout<<"cost "<<cost1<<endl;
+            //cout<<"cost "<<cost1<<endl;
             temp.setCost(cost1);
             int value1 = atoi(value.c_str());
-            cout<<"value "<<value1<<endl;
+            //cout<<"value "<<value1<<endl;
             temp.setValue(value1);
             items.push_back(temp);
         }
     }
     fs.close();
 
-    cout << endl;
+    cout << "Limit: " << knapsack.getLimit() << endl;
 
-    for (int i=0; i < items.size(); i++){
-        cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue() << endl;
-    }
-
-    cout << endl;
-    
+    sort(items.begin(), items.end(), Knapsack::sortHighestValue);
     cout<<"Highest Value First: "<< endl;
+    printItemVector(items);    
+
+    sort(items.begin(), items.end(), Knapsack::sortLowestCost);
     cout<<"Lowest Cost First: "<<endl;
+    printItemVector(items);
+
+    sort(items.begin(), items.end(), Knapsack::sortValueCostRatio);
     cout<<"Highest Ratio First: "<<endl;
+    printItemVector(items);
+    
+    sort(items.begin(), items.end(), Knapsack::sortPartialTotal);
     cout<<"Partial Knapsack: "<<endl;
+    printItemVector(items);
 }

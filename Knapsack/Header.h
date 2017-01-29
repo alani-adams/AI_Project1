@@ -44,9 +44,9 @@ public:
     void setPartialTotal (int a) {partialTotal = a;}
 
     //http://www.cplusplus.com/reference/algorithm/sort/
-    bool sortHighestValue(Item i, Item j) { return (i.getValue() > j.getValue());}
-    bool sortLowestCost(Item i, Item j) { return (i.getCost() < j.getCost());}
-    bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
-    bool sortPartialTotal(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
+    static bool sortHighestValue(Item i, Item j) { return (i.getValue() > j.getValue());}
+    static bool sortLowestCost(Item i, Item j) { return (i.getCost() < j.getCost());}
+    static bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
+    static bool sortPartialTotal(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
     
 };
