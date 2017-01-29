@@ -19,11 +19,11 @@ class Item {
     public void setValue(int a) {value = a;}
     public void setCost (int a) {cost = a;}
     public void setName {string a) {name = a;}
-        
-};
     
+};
+
 class Knapsack {
-        
+    
     private int limit;
     private float currentValue;
     
@@ -39,11 +39,4 @@ class Knapsack {
     public void setLowestCostTotal (int a) {lowestCostTotal = a);
     public void setValueCostRatioTotal (int a) {valueCostRatioTotal = a);
     public void setPartialTotal (int a) {partialTotal = a);
-
-    //http://www.cplusplus.com/reference/algorithm/sort/
-    public bool sortHighestValue(Item i, Item j) { return (i.value > j.value);}
-    public bool sortLowestCost(Item i, Item j) { return (i.cost < j.cost);}
-    public bool sortValueCostRatio(Item i, Item j) { return (((float)(i.value / i.cost) > (float)(j.value / j.cost)));}
-    public bool sortPartialTotal(Item i, Item j) { return (((float)(i.value / i.cost) > (float)(j.value / j.cost)));}
-    
 };
