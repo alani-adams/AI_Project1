@@ -40,14 +40,29 @@ vector:KnapsackItems
         
         while(getline(fs, line1))//get all the items
         {
+            
+            std::istringstream ss(line1);
+            std::string token;
+            int count=0;
             string name;
             string weight;
             string value;
-            ss >> name;
+            string i;
+            while(getline(ss, token, ','))
+            {
+                
+                if(count==0)
+                    name=token;
+                else if(count==1)
+                    weight=token;
+                else
+                    value=token;
+                
+                count++;
+            }
+            
             temp.setName(name);
-            ss >> weight;
             temp.setWeight(weight);
-            ss >> value;
             temp.setValue(value);
             items.insert(temp);
         }
