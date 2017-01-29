@@ -23,6 +23,9 @@ int main(int argc, const char * argv[]) {
     
     Knapsack knapsack;
     vector <Item> items;
+    vector<Item>::iterator it;
+    it = items.begin();
+
     Item temp;
     fstream fs;
     fs.open (argv[0]);
@@ -64,7 +67,7 @@ int main(int argc, const char * argv[]) {
             temp.setCost(cost1);
             int value1 = atoi(value.c_str());
             temp.setValue(value1);
-            items.insert(temp);
+            items.insert(it, temp);
         }
     }
     fs.close();
