@@ -62,10 +62,13 @@ int main(int argc, const char * argv[]) {
                 count++;
             }
             
+            cout<<"name "<<name<<endl;
             temp.setName(name);
             int cost1 = atoi(cost.c_str());
+            cout<<"cost "<<cost1<<endl;
             temp.setCost(cost1);
             int value1 = atoi(value.c_str());
+            cout<<"value "<<value1<<endl;
             temp.setValue(value1);
             items.insert(it, temp);
         }
