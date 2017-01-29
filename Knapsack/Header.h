@@ -15,6 +15,10 @@ class Item {
     
     public int getValue() {return value;}
     public int getCost() {return cost;}
+    public int getName() {return name;}
+    public void setValue(int a) {value = a;}
+    public void setCost (int a) {cost = a;}
+    public void setName {string a) {name = a;}
     
 };
 
