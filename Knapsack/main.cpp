@@ -23,8 +23,6 @@ int main() {
     
     Knapsack knapsack;
     vector <Item> items;
-    vector<Item>::iterator it;
-    it = items.begin();
     string filename;
     cout <<"Insert file name: ";
     cin >> filename;
@@ -72,7 +70,7 @@ int main() {
             int value1 = atoi(value.c_str());
             cout<<"value "<<value1<<endl;
             temp.setValue(value1);
-            items.insert(it, temp);
+            items.push_back(temp);
         }
     }
     fs.close();
