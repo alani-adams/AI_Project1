@@ -8,7 +8,7 @@
 
 
 class Item {
-    
+
 private:
     int value;
     int cost; //weight
@@ -17,10 +17,10 @@ private:
 public:
     int getValue() {return value;}
     int getCost() {return cost;}
-    int getName() {return name;}
+    string getName() {return name;}
     void setValue(int a) {value = a;}
     void setCost (int a) {cost = a;}
-    void setName {string a) {name = a;}
+    void setName (string a) {name = a;}
         
 };
     
@@ -36,17 +36,17 @@ private:
     int partialTotal;
     
 public:
-    int getLimit() {return limit};
+    int getLimit() {return limit;}
     void setLimit(int a) {limit = a;}
-    void setHighestValueTotal (int a) {highestValueTotal = a);
-    void setLowestCostTotal (int a) {lowestCostTotal = a);
-    void setValueCostRatioTotal (int a) {valueCostRatioTotal = a);
-    void setPartialTotal (int a) {partialTotal = a);
+    void setHighestValueTotal (int a) {highestValueTotal = a;}
+    void setLowestCostTotal (int a) {lowestCostTotal = a;}
+    void setValueCostRatioTotal (int a) {valueCostRatioTotal = a;}
+    void setPartialTotal (int a) {partialTotal = a;}
 
     //http://www.cplusplus.com/reference/algorithm/sort/
-    bool sortHighestValue(Item i, Item j) { return (i.value > j.value);}
-    bool sortLowestCost(Item i, Item j) { return (i.cost < j.cost);}
-    bool sortValueCostRatio(Item i, Item j) { return (((float)(i.value / i.cost) > (float)(j.value / j.cost)));}
-    bool sortPartialTotal(Item i, Item j) { return (((float)(i.value / i.cost) > (float)(j.value / j.cost)));}
+    bool sortHighestValue(Item i, Item j) { return (i.getValue() > j.getValue());}
+    bool sortLowestCost(Item i, Item j) { return (i.getCost() < j.getCost());}
+    bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
+    bool sortPartialTotal(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
     
 };

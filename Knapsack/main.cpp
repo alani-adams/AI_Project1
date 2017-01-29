@@ -21,8 +21,6 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-vector:KnapsackItems
-    
     Knapsack knapsack;
     vector <Item> items;
     Item temp;
@@ -31,12 +29,12 @@ vector:KnapsackItems
     if (fs.is_open())
     {
         string line1;
-        string maxWeight;
+        int maxWeight;
         getline(fs, line1);
         stringstream ss(line1);
         ss >> maxWeight;
         
-        knapsack.setLimit(<int>maxWeight);
+        knapsack.setLimit(maxWeight);
         
         while(getline(fs, line1))//get all the items
         {
@@ -45,7 +43,7 @@ vector:KnapsackItems
             std::string token;
             int count=0;
             string name;
-            string weight;
+            string cost;
             string value;
             string i;
             while(getline(ss, token, ','))
@@ -54,7 +52,7 @@ vector:KnapsackItems
                 if(count==0)
                     name=token;
                 else if(count==1)
-                    weight=token;
+                    cost=token;
                 else
                     value=token;
                 
@@ -62,7 +60,7 @@ vector:KnapsackItems
             }
             
             temp.setName(name);
-            temp.setWeight(weight);
+            temp.setCost(cost);
             temp.setValue(value);
             items.insert(temp);
         }
