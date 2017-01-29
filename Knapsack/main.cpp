@@ -60,8 +60,10 @@ int main(int argc, const char * argv[]) {
             }
             
             temp.setName(name);
-            temp.setCost(cost);
-            temp.setValue(value);
+            int cost1 = atoi(cost.c_str());
+            temp.setCost(cost1);
+            int value1 = atoi(value.c_str());
+            temp.setValue(value1);
             items.insert(temp);
         }
     }
