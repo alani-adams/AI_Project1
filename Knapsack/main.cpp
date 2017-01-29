@@ -27,8 +27,22 @@ vector:KnapsackItems
     fs.open (argv[0]);
     if (fs.is_open())
     {
+        string line1;
+        string maxWeight;
+        getline(fs, line1);
+        stringstream ss(line1);
+        ss >> maxWeight;
         
         
+        while(getline(fs, ))//get all the words
+        {
+            string word;
+            stringstream ss(word);
+            while(ss >> word)
+            {
+                
+            }
+        }
     }
     fs.close();
     
