@@ -9,34 +9,44 @@
 
 class Item {
     
-    private int value;
-    private int cost; //weight
-    private string name; //one letter char
+private:
+    int value;
+    int cost; //weight
+    string name; //one letter char
     
-    public int getValue() {return value;}
-    public int getCost() {return cost;}
-    public int getName() {return name;}
-    public void setValue(int a) {value = a;}
-    public void setCost (int a) {cost = a;}
-    public void setName {string a) {name = a;}
-    
+public:
+    int getValue() {return value;}
+    int getCost() {return cost;}
+    int getName() {return name;}
+    void setValue(int a) {value = a;}
+    void setCost (int a) {cost = a;}
+    void setName {string a) {name = a;}
+        
 };
-
+    
 class Knapsack {
     
-    private int limit;
-    private float currentValue;
+private:
+    int limit;
+    float currentValue;
     
-    private int highestValueTotal;
-    private int lowestCostTotal;
-    private int valueCostRatioTotal;
-    private int partialTotal;
+    int highestValueTotal;
+    int lowestCostTotal;
+    int valueCostRatioTotal;
+    int partialTotal;
     
+public:
+    int getLimit() {return limit};
+    void setLimit(int a) {limit = a;}
+    void setHighestValueTotal (int a) {highestValueTotal = a);
+    void setLowestCostTotal (int a) {lowestCostTotal = a);
+    void setValueCostRatioTotal (int a) {valueCostRatioTotal = a);
+    void setPartialTotal (int a) {partialTotal = a);
+
+    //http://www.cplusplus.com/reference/algorithm/sort/
+    bool sortHighestValue(Item i, Item j) { return (i.value > j.value);}
+    bool sortLowestCost(Item i, Item j) { return (i.cost < j.cost);}
+    bool sortValueCostRatio(Item i, Item j) { return (((float)(i.value / i.cost) > (float)(j.value / j.cost)));}
+    bool sortPartialTotal(Item i, Item j) { return (((float)(i.value / i.cost) > (float)(j.value / j.cost)));}
     
-    public int getLimit() {return limit};
-    public void setLimit(int a) {limit = a;}
-    public void setHighestValueTotal (int a) {highestValueTotal = a);
-    public void setLowestCostTotal (int a) {lowestCostTotal = a);
-    public void setValueCostRatioTotal (int a) {valueCostRatioTotal = a);
-    public void setPartialTotal (int a) {partialTotal = a);
 };
