@@ -2,8 +2,8 @@
 //  main.cpp
 //  AI_Project1
 //
-//  Created by Alani Peters & Cole Spears on 1/19/17.
-//  Copyright © 2017 Alani Peters & Cole Spears. All rights reserved.
+//  Created by Alani Peters on 1/19/17.
+//  Copyright © 2017 Alani Peters. All rights reserved.
 //
 
 #include <iostream>
@@ -74,6 +74,14 @@ int main() {
         }
     }
     fs.close();
+
+    cout << endl;
+
+    for (int i=0; i < items.size(); i++){
+        cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue() << endl;
+    }
+
+    cout << endl;
     
     cout<<"Highest Value First: "<< endl;
     cout<<"Lowest Cost First: "<<endl;
