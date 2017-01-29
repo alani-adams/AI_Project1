@@ -30,6 +30,7 @@ class Knapsack {
     
     
     public int getLimit() {return limit};
+    public void setLimit(int a) {limit = a;}
     public void setHighestValueTotal (int a) {highestValueTotal = a);
     public void setLowestCostTotal (int a) {lowestCostTotal = a);
     public void setValueCostRatioTotal (int a) {valueCostRatioTotal = a);
