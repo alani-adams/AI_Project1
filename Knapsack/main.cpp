@@ -19,16 +19,18 @@ using namespace std;
 
 
 
-int main(int argc, const char * argv[]) {
+int main() {
     
     Knapsack knapsack;
     vector <Item> items;
     vector<Item>::iterator it;
     it = items.begin();
-
+    string filename;
+    cout <<"Insert file name: ";
+    cin >> filename;
     Item temp;
     fstream fs;
-    fs.open (argv[0]);
+    fs.open (filename);
     if (fs.is_open())
     {
         string line1;
