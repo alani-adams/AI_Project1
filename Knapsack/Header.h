@@ -49,4 +49,9 @@ public:
     static bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
     static bool sortPartialTotal(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
     
+        
+    float highestValueFunction(vector <Item> items);
+    float lowestCostFunction(vector <Item> items);
+    float valueCostRatioFunction(vector <Item> items);
+    float partialTotalFunction(vector <Item> items);
 };
