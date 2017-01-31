@@ -84,18 +84,18 @@ int main() {
     cout << "Limit: " << knapsack.getLimit() << endl;
 
     sort(items.begin(), items.end(), Knapsack::sortHighestValue);
-    cout<<"Highest Value First: "<< endl;
+    cout<<"Highest Value First: "<< knapsack.highestValueFunction() << endl;
     printItemVector(items);    
 
     sort(items.begin(), items.end(), Knapsack::sortLowestCost);
-    cout<<"Lowest Cost First: "<<endl;
+    cout<<"Lowest Cost First: "<< knapsack.lowestCostFunction << endl;
     printItemVector(items);
 
     sort(items.begin(), items.end(), Knapsack::sortValueCostRatio);
-    cout<<"Highest Ratio First: "<<endl;
+    cout<<"Highest Ratio First: "<<knapsack.valueCostRatioFunction << endl;
     printItemVector(items);
     
     sort(items.begin(), items.end(), Knapsack::sortPartialTotal);
-    cout<<"Partial Knapsack: "<<endl;
+    cout<<"Partial Knapsack: "<<knapsack.partialTotalFunction << endl;
     printItemVector(items);
 }
