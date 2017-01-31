@@ -11,23 +11,65 @@
 #include <algorithm>
 #include "Header.h"
 
-float Knapsack::highestValueFunction(vector <Item> items)
+float Knapsack::highestValueFunction(vector <Item> items, Knapsack knapsack)
 {
-    
-    sortHighestValue(????);
+    float currentCost=0;
+    float currentValue=0;
+    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    {
+        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        {
+            currentCost = items[i].getCost()+currentCost;
+            currentValue = items[i].getCost()+currentValue;
+        }
+    }
+    return currentValue;
 }
 
-float Knapsack::lowestCostFunction(vector <Item> items)
+float Knapsack::lowestCostFunction(vector <Item> items, Knapsack knapsack)
 {
-    sortLowestCost(????);
+    float currentCost=0;
+    float currentValue=0;
+    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    {
+        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        {
+            currentCost = items[i].getCost()+currentCost;
+            currentValue = items[i].getCost()+currentValue;
+        }
+    }
+    return currentValue;
+    
 }
 
 float Knapsack::valueCostRatioFunction(vector <Item> items)
 {
-    sortValueCostRatio(????);
+    float currentCost=0;
+    float currentValue=0;
+    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    {
+        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        {
+            currentCost = items[i].getCost()+currentCost;
+            currentValue = items[i].getCost()+currentValue;
+        }
+    }
+    return currentValue;
+    
 }
 
-float Knapsack::partialTotalFunction(vector <Item> items)
+float Knapsack::partialTotalFunction(vector <Item> items)//******** need to finish
 {
-    sortPartialTotal(????);
+    float currentCost=0;
+    float currentValue=0;
+    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    {
+        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        {
+            currentCost = items[i].getCost()+currentCost;
+            currentValue = items[i].getCost()+currentValue;
+        }
+    }//not complete.... need to do the partial part!!!!!
+    return currentValue;
+    
 }
