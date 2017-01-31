@@ -48,8 +48,8 @@ int main() {
         while(getline(fs, line1))//get all the items
         {
             
-            std::istringstream ss(line1);
-            std::string token;
+            istringstream ss(line1);
+            string token;
             int count=0;
             string name;
             string cost;
