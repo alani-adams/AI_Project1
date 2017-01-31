@@ -11,65 +11,68 @@
 #include <algorithm>
 #include "Header.h"
 
-float Knapsack::highestValueFunction(vector <Item> items, Knapsack knapsack)
+float Knapsack::highestValueFunction(vector <Item> items)
 {
     float currentCost=0;
-    float currentValue=0;
-    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    highestValueTotal=0;
+    for(int i=0; currentCost<limit && i<items.size(); i++)
     {
-        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        if((items[i].getCost()+currentCost) < limit)
         {
             currentCost = items[i].getCost()+currentCost;
-            currentValue = items[i].getCost()+currentValue;
+            highestValueTotal = items[i].getCost()+highestValueTotal;
         }
     }
-    return currentValue;
+    
+    return highestValueTotal;
 }
 
-float Knapsack::lowestCostFunction(vector <Item> items, Knapsack knapsack)
+float Knapsack::lowestCostFunction(vector <Item> items)
 {
     float currentCost=0;
-    float currentValue=0;
-    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    lowestCostTotal=0;
+    for(int i=0; currentCost<limit && i<items.size(); i++)
     {
-        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        if((items[i].getCost()+currentCost) < limit)
         {
             currentCost = items[i].getCost()+currentCost;
-            currentValue = items[i].getCost()+currentValue;
+            lowestCostTotal = items[i].getCost()+lowestCostTotal;
         }
     }
-    return currentValue;
+    
+    return lowestCostTotal;
     
 }
 
 float Knapsack::valueCostRatioFunction(vector <Item> items)
 {
     float currentCost=0;
-    float currentValue=0;
-    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    valueCostRatioTotal=0;
+    for(int i=0; currentCost<limit && i<items.size(); i++)
     {
-        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        if((items[i].getCost()+currentCost) < limit)
         {
             currentCost = items[i].getCost()+currentCost;
-            currentValue = items[i].getCost()+currentValue;
+            valueCostRatioTotal = items[i].getCost()+valueCostRatioTotal;
         }
     }
-    return currentValue;
+    
+    return valueCostRatioTotal;
     
 }
 
 float Knapsack::partialTotalFunction(vector <Item> items)//******** need to finish
 {
     float currentCost=0;
-    float currentValue=0;
-    for(int i=0; currentCost<knapsack.getLimit() && i<items.size(); i++)
+    partialTotal=0;
+    for(int i=0; currentCost<limit && i<items.size(); i++)
     {
-        if((items[i].getCost()+currentCost) < knapsack.getLimit())
+        if((items[i].getCost()+currentCost) < limit)
         {
             currentCost = items[i].getCost()+currentCost;
-            currentValue = items[i].getCost()+currentValue;
+            partialTotal = items[i].getCost()+partialTotal;
         }
-    }//not complete.... need to do the partial part!!!!!
-    return currentValue;
+    }
+    return partialTotal;//not complete.... need to do the partial part!!!!!
     
 }
