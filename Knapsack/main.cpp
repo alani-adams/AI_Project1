@@ -48,8 +48,8 @@ int main() {
         while(getline(fs, line1))//get all the items
         {
             
-            istringstream ss(line1);
-            string token;
+            std::istringstream ss(line1);
+            std::string token;
             int count=0;
             string name;
             string cost;
@@ -81,21 +81,26 @@ int main() {
     }
     fs.close();
 
-    cout << "Limit: " << knapsack.getLimit() << endl;
+    cout << endl << "Limit: " << knapsack.getLimit() << endl << endl;
 
     sort(items.begin(), items.end(), Knapsack::sortHighestValue);
-    cout<<"Highest Value First: "<< knapsack.highestValueFunction() << endl;
-    printItemVector(items);    
+    cout<<"Highest Value First: "<< endl;
+    //printItemVector(items);    
+    cout << "Solution: "<< Knapsack::calculateGreedySolution(items, knapsack) << endl << endl;
 
     sort(items.begin(), items.end(), Knapsack::sortLowestCost);
-    cout<<"Lowest Cost First: "<< knapsack.lowestCostFunction << endl;
-    printItemVector(items);
+    cout<<"Lowest Cost First: "<<endl;
+    //printItemVector(items);
+    cout << "Solution: "<< Knapsack::calculateGreedySolution(items, knapsack) << endl << endl;
 
     sort(items.begin(), items.end(), Knapsack::sortValueCostRatio);
-    cout<<"Highest Ratio First: "<<knapsack.valueCostRatioFunction << endl;
-    printItemVector(items);
+    cout<<"Highest Ratio First: "<<endl;
+    //printItemVector(items);
+    cout << "Solution: "<< Knapsack::calculateGreedySolution(items, knapsack) << endl << endl;
     
     sort(items.begin(), items.end(), Knapsack::sortPartialTotal);
-    cout<<"Partial Knapsack: "<<knapsack.partialTotalFunction << endl;
-    printItemVector(items);
+    cout<<"Partial Knapsack: "<<endl;
+    cout << "THIS STILL NEEDS TO BE FIXED" << endl;
+    cout << "Solution: "<< Knapsack::calculatePartialKnapsackSolution(items, knapsack) << endl << endl;
+    //printItemVector(items);
 }

@@ -48,10 +48,48 @@ public:
     static bool sortLowestCost(Item i, Item j) { return (i.getCost() < j.getCost());}
     static bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
     static bool sortPartialTotal(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
+
+    static int calculateGreedySolution(vector<Item> v, Knapsack k){
+
+        float sol = 0;
+        float i = 0;
+        float currentWeight = 0;
+
+        for (int i = 0; i < v.size(); i++)
+        {
+            if ( currentWeight + v[i].getCost() <= k.getLimit()) //if we can take an item
+            {
+                sol += v[i].getValue();
+                currentWeight += v[i].getCost();
+            }
+            else
+                break; //if there is ever a case where our knapsack will be too large, we break, taking greedy solution
+        }   
+
+        return sol;
+    }
+
+    static int calculatePartialKnapsackSolution(vector<Item> v, Knapsack k){
+
+        float sol = 0;
+        float i = 0;
+        float currentWeight = 0;
+
+        for (int i = 0; i < v.size(); i++)
+        {
+            if ( currentWeight + v[i].getCost() <= k.getLimit()) //if we can take an item
+            {
+                sol += v[i].getValue();
+                currentWeight += v[i].getCost();
+            }
+            else
+            {
+                //Get the partial of the next item, up to limit, then break
+                break;
+            }
+        }   
+
+        return sol;
+    }
     
-        
-    float highestValueFunction(vector <Item> items);
-    float lowestCostFunction(vector <Item> items);
-    float valueCostRatioFunction(vector <Item> items);
-    float partialTotalFunction(vector <Item> items);
 };
