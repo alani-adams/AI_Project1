@@ -71,11 +71,11 @@ public:
 
     static int calculatePartialKnapsackSolution(vector<Item> v, Knapsack k){
 
-        float sol = 0;
-        float i = 0;
+        float sol = 0; //solution
+        float i = 0; //counter
         float currentWeight = 0;
 
-        for (int i = 0; i < v.size(); i++)
+        for ( i = 0; i < v.size(); i++)
         {
             if ( currentWeight + v[i].getCost() <= k.getLimit()) //if we can take an item
             {
@@ -84,6 +84,8 @@ public:
             }
             else
             {
+                float difference = k.getLimit() - currentWeight;
+                sol = sol + (v[i].getValue() * (v[i].getCost()/difference));
                 //Get the partial of the next item, up to limit, then break
                 break;
             }
