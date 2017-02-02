@@ -10,13 +10,13 @@
 class Item {
 
 private:
-    int value;
-    int cost; //weight
+    float value;
+    float cost; //weight
     string name; //one letter char
     
 public:
-    int getValue() {return value;}
-    int getCost() {return cost;}
+    float getValue() {return value;}
+    float getCost() {return cost;}
     string getName() {return name;}
     void setValue(int a) {value = a;}
     void setCost (int a) {cost = a;}
@@ -27,16 +27,16 @@ public:
 class Knapsack {
     
 private:
-    int limit;
+    float limit;
     float currentValue;
     
-    int highestValueTotal;
-    int lowestCostTotal;
-    int valueCostRatioTotal;
-    int partialTotal;
+    float highestValueTotal;
+    float lowestCostTotal;
+    float valueCostRatioTotal;
+    float partialTotal;
     
 public:
-    int getLimit() {return limit;}
+    float getLimit() {return limit;}
     void setLimit(int a) {limit = a;}
     void setHighestValueTotal (int a) {highestValueTotal = a;}
     void setLowestCostTotal (int a) {lowestCostTotal = a;}
@@ -49,7 +49,7 @@ public:
     static bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
     static bool sortPartialTotal(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
 
-    static int calculateGreedySolution(vector<Item> v, Knapsack k){
+    static float calculateGreedySolution(vector<Item> v, Knapsack k){
 
         float sol = 0;
         float i = 0;
@@ -69,7 +69,7 @@ public:
         return sol;
     }
 
-    static int calculatePartialKnapsackSolution(vector<Item> v, Knapsack k){
+    static float calculatePartialKnapsackSolution(vector<Item> v, Knapsack k){
 
         float sol = 0; //solution
         float i = 0; //counter
