@@ -13,6 +13,8 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#include <cstdio>
+#include <ctime>
 using namespace std;
 
 #include "Header.h"
@@ -102,4 +104,16 @@ int main() {
     cout<<"Partial Knapsack: "<<endl;
     cout << "Solution: "<< Knapsack::calculatePartialKnapsackSolution(items, knapsack) << endl << endl;
     //printItemVector(items);
+    
+    
+ /* HOW TO DO A TIMER 
+    std::clock_t start;
+    double duration;
+
+    start = std::clock();
+
+    //Your algorithm here
+    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+
+    std::cout<<"printf: "<< duration <<'\n';*/
 }
