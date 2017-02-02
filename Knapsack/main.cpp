@@ -100,7 +100,6 @@ int main() {
     
     sort(items.begin(), items.end(), Knapsack::sortPartialTotal);
     cout<<"Partial Knapsack: "<<endl;
-    cout << "THIS STILL NEEDS TO BE FIXED" << endl;
     cout << "Solution: "<< Knapsack::calculatePartialKnapsackSolution(items, knapsack) << endl << endl;
     //printItemVector(items);
 }
