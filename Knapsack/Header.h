@@ -55,14 +55,14 @@ public:
         float i = 0;
         float currentWeight = 0;
 
-        for (int i = 0; i < v.size(); i++)
+        for ( i = 0; i < v.size(); i++)
         {
             if ( currentWeight + v[i].getCost() <= k.getLimit()) //if we can take an item
             {
                 sol += v[i].getValue();
                 currentWeight += v[i].getCost();
             }
-            else
+            else 
                 break; //if there is ever a case where our knapsack will be too large, we break, taking greedy solution
         }   
 
