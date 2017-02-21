@@ -5,7 +5,11 @@
 //  Created by Alani Peters on 1/19/17.
 //  Copyright © 2017 Alani Peters. All rights reserved.
 //
+#include <string>
+#include <iostream>
+#include <sstream>
 
+using namespace std;
 
 class Item {
 

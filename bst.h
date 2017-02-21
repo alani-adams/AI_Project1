@@ -1,10 +1,13 @@
 #include <cstddef>
+#include <cmath>
+#include <vector>
 
 template <typename T>
 struct Node {
     T data;         // Data held at this node in tree
     Node<T>* left;  // Pointer to left child
     Node<T>* right; // Pointer to right child
+    Node<T>* parentNode; //Pointer to parent
 };
 
 template <typename T>
@@ -40,24 +43,84 @@ void destroy(Tree<T> &t)
 }
 
 template <typename T>
-Tree<T>* insert(Tree<T> &t, T value)
+Tree<T>* insert(Tree<T> &t, T itemList)
 {
     // Create new node to add to tree
-    Node<T>* newNode1 = new Node<T>;
-    newNode->data  = value;
-    newNode->left  = NULL;
-    newNode->right = NULL;
-    
+
     /*if( t.root == NULL ) { // empty tree
         t.root = newNode;
         return;
     }
     */
 
+    
     Node<T>* walker = t.root;
-    while( true )
+    vector<Item> emptyItemList;
+    walker->data = emptyItemList;
+
+    bool moveRight = false;
+    int index = 0;
+    unsigned int noOfTotalNodes =  (pow (2, itemList.size() + 1) - 1);
+    unsigned int count = 0;
+
+
+    while( count <= noOfTotalNodes ) //supposed to be < or <=?
     {
-        if( walker->data > value )
+        Node<T>* newNode = new Node<T>;
+        newNode->data  = NULL;
+        newNode->left  = NULL;
+        newNode->right = NULL;
+        newNode->parentNode = NULL;
+
+        if (moveRight && walker->right != NULL)
+        {
+            T temp = walker->data;
+
+            walker = walker->right;
+            
+            walker->data = temp;
+            walker->data.push_back(itemList[index]);
+
+            moveRight = false;
+            count++;
+        }
+
+        else if ( moveRight )
+        {
+            newNode->parentNode = walker;
+            walker->right = newNode;
+            index++;
+            //we also need to add new value in vector[index]
+        }
+
+        else if (walker->left == NULL && index < itemList.size())//index is < amount of items)
+        {
+            newNode->parentNode = walker;
+            walker->left = newNode;
+        }
+
+        else if (index == itemList.size())
+        {
+            //we need to move up a row
+            moveRight = true;
+            walker = walker->parentNode;
+            index--;
+        }
+        else
+        {    
+            T temp = walker->data;
+
+            walker = walker->left;
+
+            walker->data = temp;
+            //copy parent value
+            index++;
+            count++;
+        }
+
+
+
+        /*if( walker->data > value )
         {
             if( walker->left == NULL )
             {
@@ -76,8 +139,10 @@ Tree<T>* insert(Tree<T> &t, T value)
             }
             else
                 walker = walker->right;
-        }
+        }*/
     }
+    
+    return t.root;
 }
 
 // Return depth at which value appears

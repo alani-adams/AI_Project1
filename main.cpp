@@ -29,17 +29,13 @@ void printItemVector(vector<Item> items)
     }
 }
 
-Tree exhaustiveSearch(vector<Item> items)
+template <typename T>
+Tree<T>* createTree(vector<Item> items)
 {
-    Tree bst;
-    bst.initialize();
-    for(int i=0; i<items.size(); i++)
-    {
-        insert(items[i]);
-    }
+    
+    initialize(Tree<T>* bst);
 
-
-    return bst;
+    return insert(bst, items);
 }
 
 int main() 
@@ -123,7 +119,8 @@ int main()
     
     //exhaustive search
 
-    Tree bst = exhaustiveSearch(items);
+
+    Tree <vector<Item> > bst = createTree(items);
     
 
 
