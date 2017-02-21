@@ -1,6 +1,9 @@
 #include <cstddef>
-#include <cmath>
+#include <math.h>
 #include <vector>
+#include <cmath>
+using namespace std;
+
 
 template <typename T>
 struct Node {
@@ -43,35 +46,30 @@ void destroy(Tree<T> &t)
 }
 
 template <typename T>
-Tree<T>* insert(Tree<T> &t, T itemList)
+Tree<T> insert(Tree<T> &tr, T itemList)
 {
-    // Create new node to add to tree
-
-    /*if( t.root == NULL ) { // empty tree
-        t.root = newNode;
-        return;
-    }
-    */
-
-    
-    Node<T>* walker = t.root;
-    vector<Item> emptyItemList;
-    walker->data = emptyItemList;
+    Node<T>* walker = new Node<T>;
+    //walker = tr->root;
+    T hold = itemList;
+    //vector<Item> emptyItemList = itemList.clear();
+    walker->data = itemList;
+    walker->data.clear();
+    itemList=hold;
 
     bool moveRight = false;
     int index = 0;
-    unsigned int noOfTotalNodes =  (pow (2, itemList.size() + 1) - 1);
-    unsigned int count = 0;
+    int noOfTotalNodes =  (pow(2, (itemList.size() + 1)) - 1);
+    int count = 0;
 
-
+    cout << noOfTotalNodes <<endl;
     while( count <= noOfTotalNodes ) //supposed to be < or <=?
     {
         Node<T>* newNode = new Node<T>;
-        newNode->data  = NULL;
+        //newNode->data  = NULL;
         newNode->left  = NULL;
         newNode->right = NULL;
         newNode->parentNode = NULL;
-
+        cout << index << endl;
         if (moveRight && walker->right != NULL)
         {
             T temp = walker->data;
@@ -83,31 +81,34 @@ Tree<T>* insert(Tree<T> &t, T itemList)
 
             moveRight = false;
             count++;
-        }
+            cout << "hi" <<endl;
 
+        }
         else if ( moveRight )
         {
             newNode->parentNode = walker;
             walker->right = newNode;
             index++;
             //we also need to add new value in vector[index]
+            cout << "hi1" <<endl;
         }
-
         else if (walker->left == NULL && index < itemList.size())//index is < amount of items)
         {
             newNode->parentNode = walker;
             walker->left = newNode;
+            cout << "hi2" <<endl;
         }
-
         else if (index == itemList.size())
         {
             //we need to move up a row
             moveRight = true;
             walker = walker->parentNode;
             index--;
+            cout << "hi3" <<endl;
         }
         else
         {    
+            cout << "hi5" <<endl;
             T temp = walker->data;
 
             walker = walker->left;
@@ -116,33 +117,11 @@ Tree<T>* insert(Tree<T> &t, T itemList)
             //copy parent value
             index++;
             count++;
+            cout << "hi4" <<endl;
         }
-
-
-
-        /*if( walker->data > value )
-        {
-            if( walker->left == NULL )
-            {
-                walker->left = newNode;
-                return;
-            }
-            else
-                walker = walker->left;
-        }
-        else // walker->data < value
-        {
-            if( walker->right == NULL )
-            {
-                walker->right = newNode;
-                return;
-            }
-            else
-                walker = walker->right;
-        }*/
     }
     
-    return t.root;
+    return tr;
 }
 
 // Return depth at which value appears
