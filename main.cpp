@@ -33,12 +33,12 @@ using namespace std;
 }*/
 
 //template <typename T>
-Tree<vector <Item> > createTree(vector<Item> items)
+Tree<vector <Item> > createTree(vector<Item> items, Knapsack knapsack)
 {
     Tree<vector <Item> > bst1;
     initialize(bst1);
 
-    return insert(bst1, items);
+    return insert(bst1, items, knapsack);
 }
 
 int main() 
@@ -101,7 +101,12 @@ int main()
     cout << endl << "Limit: " << knapsack.getLimit() << endl << endl;
 
 
-    Tree <vector <Item> > bst = createTree(items);
+    Tree <vector <Item> > bst = createTree(items, knapsack);
+    cout << "Exhaustive: " << endl;
+    cout << "Solution: " << bst.bestValue <<endl;
+    printItemVector(bst.bestSolution);
+    cout << endl;
+
 
     sort(items.begin(), items.end(), Knapsack::sortHighestValue);
     cout<<"Highest Value First: "<< endl;

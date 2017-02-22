@@ -16,6 +16,8 @@ struct Node {
 template <typename T>
 struct Tree {
     Node<T>* root; // Pointer to topmost (root) node
+    vector<Item> bestSolution;
+    float bestValue;
 };
 
 template <typename T>
@@ -24,12 +26,13 @@ void initialize(Tree<T> &t)
     t.root = new Node<T>;
     vector<Item> temp;
     t.root->data = temp;
+    t.bestValue = 0;
 }
 
 void printItemVector(vector<Item> items)
 {
     for (int i=0; i < items.size(); i++){
-        cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue() << endl << endl;
+        cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue()  << endl;
     }
 }
 
@@ -55,7 +58,7 @@ void destroy(Tree<T> &t)
 }
 
 template <typename T>
-Tree<T> insert(Tree<T> &tr, T itemList)
+Tree<T> insert(Tree<T> &tr, T itemList, Knapsack knapsack)
 {
     Node<T>* walker = new Node<T>;
     walker = tr.root;
@@ -66,18 +69,36 @@ Tree<T> insert(Tree<T> &tr, T itemList)
     int count = 1;
 
     //cout << index << endl;
-    cout << noOfTotalNodes <<endl<<endl;
+    //cout << noOfTotalNodes <<endl<<endl;
     while( count <= noOfTotalNodes ) //supposed to be < or <=?
     {
+        
+
+
         Node<T>* newNode = new Node<T>;
         //newNode->data  = NULL;
         newNode->left  = NULL;
         newNode->right = NULL;
         newNode->parentNode = NULL;
 
-        cout <<"Index " <<index << endl;
-        cout << "count " <<count << endl;
-        printItemVector(walker->data);
+        //cout <<"Index " <<index << endl;
+        //cout << "count " <<count << endl;
+        //printItemVector(walker->data);
+        int cost=0;
+        int value=0;
+        for(int i=0; i<walker->data.size(); i++)
+        {
+            cost += walker->data[i].getCost();
+            value += walker->data[i].getValue();
+
+        }
+        if(cost<= knapsack.getLimit() && value >= tr.bestValue)
+        {
+            tr.bestSolution = walker->data;
+            tr.bestValue = value;
+        }
+
+
         if(index==0 && (walker->left!=NULL) && (walker->right!=NULL))
         {    
             return tr;
@@ -125,10 +146,12 @@ Tree<T> insert(Tree<T> &tr, T itemList)
             index--;
         }
         
+
     }
     
     return tr;
 }
+
 
 // Return depth at which value appears
 //    or -1 if value is not in tree
