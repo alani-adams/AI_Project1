@@ -16,6 +16,8 @@
 #include <cstdio>
 #include <ctime>
 #include <math.h>
+#include <cmath>
+
 
 
 #include "Header.h"
@@ -23,12 +25,12 @@
 
 using namespace std;
 
-void printItemVector(vector<Item> items)
+/*void printItemVector(vector<Item> items)
 {
     for (int i=0; i < items.size(); i++){
         cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue() << endl;
     }
-}
+}*/
 
 //template <typename T>
 Tree<vector <Item> > createTree(vector<Item> items)
@@ -98,6 +100,9 @@ int main()
 
     cout << endl << "Limit: " << knapsack.getLimit() << endl << endl;
 
+
+    Tree <vector <Item> > bst = createTree(items);
+
     sort(items.begin(), items.end(), Knapsack::sortHighestValue);
     cout<<"Highest Value First: "<< endl;
     //printItemVector(items);    
@@ -121,12 +126,11 @@ int main()
     //exhaustive search
 
 
-    Tree <vector <Item> > bst = createTree(items);
-    
+  
 
 
 
-   destroy(bst);
+   //destroy(bst);
  /* HOW TO DO A TIMER 
     std::clock_t start;
     double duration;

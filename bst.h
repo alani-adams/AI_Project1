@@ -21,10 +21,19 @@ struct Tree {
 template <typename T>
 void initialize(Tree<T> &t)
 {
-    t.root = NULL;
+    t.root = new Node<T>;
+    vector<Item> temp;
+    t.root->data = temp;
 }
 
-// This is the recursive destroy function, accepting a Node* argument.
+void printItemVector(vector<Item> items)
+{
+    for (int i=0; i < items.size(); i++){
+        cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue() << endl << endl;
+    }
+}
+
+// is the recursive destroy function, accepting a Node* argument.
 template <typename T>
 void destroy(Node<T>* n)
 {
@@ -49,19 +58,15 @@ template <typename T>
 Tree<T> insert(Tree<T> &tr, T itemList)
 {
     Node<T>* walker = new Node<T>;
-    //walker = tr->root;
-    T hold = itemList;
-    //vector<Item> emptyItemList = itemList.clear();
-    walker->data = itemList;
-    walker->data.clear();
-    itemList=hold;
-
+    walker = tr.root;
+    
     bool moveRight = false;
-    int index = 0;
-    int noOfTotalNodes =  (pow(2, (itemList.size() + 1)) - 1);
-    int count = 0;
+    int index = 0; //row
+    int noOfTotalNodes =  (pow(2, itemList.size()+1) - 1);
+    int count = 1;
 
-    cout << noOfTotalNodes <<endl;
+    //cout << index << endl;
+    cout << noOfTotalNodes <<endl<<endl;
     while( count <= noOfTotalNodes ) //supposed to be < or <=?
     {
         Node<T>* newNode = new Node<T>;
@@ -69,65 +74,57 @@ Tree<T> insert(Tree<T> &tr, T itemList)
         newNode->left  = NULL;
         newNode->right = NULL;
         newNode->parentNode = NULL;
-        cout << index << endl;
 
-        if (moveRight && walker->right != NULL)
+        cout <<"Index " <<index << endl;
+        cout << "count " <<count << endl;
+        printItemVector(walker->data);
+        if(index==0 && (walker->left!=NULL) && (walker->right!=NULL))
+        {    
+            return tr;
+        }
+        else if ( moveRight && (walker->right!=NULL))
         {
+            index--;
+            walker = walker->parentNode;
+            //move right is still true
+        }
+        else if ( moveRight )
+        {
+            newNode->parentNode = walker;
+            walker->right = newNode;
+            
             T temp = walker->data;
 
             walker = walker->right;
             
             walker->data = temp;
             walker->data.push_back(itemList[index]);
-
+            
             moveRight = false;
             count++;
-            cout << "hi" <<endl;
-
-        }
-        else if ( moveRight )
-        {
-            newNode->parentNode = walker;
-            walker->right = newNode;
             index++;
+            
             //we also need to add new value in vector[index]
-            cout << "hi1" <<endl;
         }
         else if (walker->left == NULL && index < itemList.size())//index is < amount of items)
         {
             newNode->parentNode = walker;
             walker->left = newNode;
-            cout << "hi2" <<endl;
+
+            T temp = walker->data;
+            walker = walker->left;
+            walker->data = temp; 
+            index++;
+            count++;
         }
-        else if (index == itemList.size())
+        else if (index >= itemList.size())
         {
             //we need to move up a row
             moveRight = true;
             walker = walker->parentNode;
             index--;
-            cout << "hi3" <<endl;
         }
-        else
-        {    
-           /* T hold = itemList;
-            walker->data = itemList;
-            walker->data.clear();
-            itemList=hold; */
-
-            T temp = walker->data;
-
-            walker = walker->left;
-
-            cout << walker <<endl;
-
-            walker->data = temp; 
-
-            cout << "hi4" <<endl;
-            //copy parent value
-            index++;
-            count++;
-
-        }
+        
     }
     
     return tr;
@@ -154,28 +151,29 @@ int contains(Tree<T> &t, T value)
     return -1;
 }
 
+
 // Visualization recursive call per Node
 template <typename T>
 std::string visualize(Node<T>* N)
 {
     std::stringstream s;
     if (N->left) {
-        s << "\t" << N->data << " -> " << N->left->data << ";\n"
+        s << "\t" << printItemVector(N->data) << " -> " << printItemVector(N->left->data) << ";\n"
         << visualize(N->left);
     }
     else
     {
-        s << "\tNLC" << N->data << " [shape=point];\n";
-        s << "\t" << N->data << " -> NLC" << N->data << ";\n";
+        s << "\tNLC" << printItemVector(N->data) << " [shape=point];\n";
+        s << "\t" << printItemVector(N->data) << " -> NLC" << printItemVector(N->data) << ";\n";
     }
     if (N->right) {
-        s << "\t" << N->data << " -> " << N->right->data << ";\n"
+        s << "\t" << printItemVector(N->data) << " -> " << printItemVector(N->right->data) << ";\n"
         << visualize(N->right);
     }
     else
     {
-        s << "\tNRC" << N->data << " [shape=point];\n";
-        s << "\t" << N->data << " -> NRC" << N->data << ";\n";
+        s << "\tNRC" << printItemVector(N->data) << " [shape=point];\n";
+        s << "\t" << printItemVector(N->data) << " -> NRC" << printItemVector(N->data) << ";\n";
     }
     return s.str();
 }
