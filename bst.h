@@ -70,6 +70,7 @@ Tree<T> insert(Tree<T> &tr, T itemList)
         newNode->right = NULL;
         newNode->parentNode = NULL;
         cout << index << endl;
+
         if (moveRight && walker->right != NULL)
         {
             T temp = walker->data;
@@ -108,16 +109,24 @@ Tree<T> insert(Tree<T> &tr, T itemList)
         }
         else
         {    
-            cout << "hi5" <<endl;
+           /* T hold = itemList;
+            walker->data = itemList;
+            walker->data.clear();
+            itemList=hold; */
+
             T temp = walker->data;
 
             walker = walker->left;
 
-            walker->data = temp;
+            cout << walker <<endl;
+
+            walker->data = temp; 
+
+            cout << "hi4" <<endl;
             //copy parent value
             index++;
             count++;
-            cout << "hi4" <<endl;
+
         }
     }
     

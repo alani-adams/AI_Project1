@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <ctime>
+#include <math.h>
 
 
 #include "Header.h"
@@ -29,20 +30,20 @@ void printItemVector(vector<Item> items)
     }
 }
 
-template <typename T>
-Tree<T>* createTree(vector<Item> items)
+//template <typename T>
+Tree<vector <Item> > createTree(vector<Item> items)
 {
-    
-    initialize(Tree<T>* bst);
+    Tree<vector <Item> > bst1;
+    initialize(bst1);
 
-    return insert(bst, items);
+    return insert(bst1, items);
 }
 
 int main() 
 {
     
     Knapsack knapsack;
-    vector <Item> items;
+    vector<Item> items;
     string filename;
     cout <<"Insert file name: ";
     cin >> filename;
@@ -120,12 +121,12 @@ int main()
     //exhaustive search
 
 
-    Tree <vector<Item> > bst = createTree(items);
+    Tree <vector <Item> > bst = createTree(items);
     
 
 
 
-    bst.destroy();
+   destroy(bst);
  /* HOW TO DO A TIMER 
     std::clock_t start;
     double duration;
