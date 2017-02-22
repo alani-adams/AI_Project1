@@ -41,6 +41,14 @@ Tree<vector <Item> > createTree(vector<Item> items, Knapsack knapsack)
     return insert(bst1, items, knapsack);
 }
 
+Tree<vector <Item> > createTreePrune(vector<Item> items, Knapsack knapsack)
+{
+    Tree<vector <Item> > bst1;
+    initialize(bst1);
+    cout << "hi " << endl;
+    return insertPrune(bst1, items, knapsack);
+}
+
 int main() 
 {
     
@@ -105,6 +113,12 @@ int main()
     cout << "Exhaustive: " << endl;
     cout << "Solution: " << bst.bestValue <<endl;
     printItemVector(bst.bestSolution);
+    cout << endl;
+
+    Tree <vector <Item> > bstPrune = createTreePrune(items, knapsack);
+    cout << "Tree Pruning: " << endl;
+    cout << "Solution: " << bstPrune.bestValue <<endl;
+    printItemVector(bstPrune.bestSolution);
     cout << endl;
 
 

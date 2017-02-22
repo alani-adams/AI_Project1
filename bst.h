@@ -152,6 +152,120 @@ Tree<T> insert(Tree<T> &tr, T itemList, Knapsack knapsack)
     return tr;
 }
 
+template <typename T>
+Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
+{
+    Node<T>* walker = new Node<T>;
+    walker = trPr.root;
+    
+    bool moveRight = false;
+    int index = 0; //row
+    int noOfTotalNodes =  (pow(2, itemList.size()+1) - 1);
+    int count = 1;
+
+    //cout << index << endl;
+    cout << "num of total nodes" << noOfTotalNodes <<endl<<endl;
+    while( count <= noOfTotalNodes ) //supposed to be < or <=?
+    {
+
+
+        Node<T>* newNode = new Node<T>;
+        //newNode->data  = NULL;
+        newNode->left  = NULL;
+        newNode->right = NULL;
+        newNode->parentNode = NULL;
+
+        cout <<"Index " <<index << endl;
+        cout << "count " <<count << endl;
+        printItemVector(walker->data);
+
+        int cost=0;
+        int value=0;
+        for(int i=0; i<walker->data.size(); i++)
+        {
+            cost += walker->data[i].getCost();
+            value += walker->data[i].getValue();
+            cout << "cost " << cost << endl;
+            cout << "value " << value << endl;
+
+        }
+        if(cost <= knapsack.getLimit() && value >= trPr.bestValue)
+        {
+            trPr.bestSolution = walker->data;
+            trPr.bestValue = value;
+            cout << "new best solution " << value << endl;
+        }
+        else if(cost >= knapsack.getLimit())
+        {
+            count += (pow(2, (itemList.size()-index+1)) - 1);
+            index--;
+            walker = walker->parentNode; 
+            moveRight=true;
+            cout << "prune the tree " << endl;
+        }
+
+
+        /*if(index==0 && (walker->left!=NULL) && (walker->right!=NULL))
+        {    
+            cout << "hello again" <<endl;
+            return tr;
+        }
+        else */
+        if( index==0 && walker->right==NULL)
+        {
+            index++;
+        }
+        else if ( moveRight && (walker->right!=NULL))
+        {
+            index--;
+            walker = walker->parentNode;
+            cout << "hi1" << endl;
+            //move right is still true
+        }
+        else if ( moveRight )
+        {
+            newNode->parentNode = walker;
+            walker->right = newNode;
+            
+            T temp = walker->data;
+
+            walker = walker->right;
+            
+            walker->data = temp;
+            walker->data.push_back(itemList[index]);
+            
+            moveRight = false;
+            count++;
+            index++;
+            cout << "hi2" << endl;
+            //we also need to add new value in vector[index]
+        }
+        else if (walker->left == NULL && index < itemList.size())//index is < amount of items)
+        {
+            newNode->parentNode = walker;
+            walker->left = newNode;
+
+            T temp = walker->data;
+            walker = walker->left;
+            walker->data = temp; 
+            index++;
+            count++;
+            cout << "hi3" << endl;
+        }
+        else if (index >= itemList.size())
+        {
+            //we need to move up a row
+            moveRight = true;
+            walker = walker->parentNode;
+            index--;
+            cout << "hi4" << endl;
+        }
+        
+
+    }
+    
+    return trPr;
+}
 
 // Return depth at which value appears
 //    or -1 if value is not in tree
