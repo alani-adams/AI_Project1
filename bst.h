@@ -63,100 +63,6 @@ void destroy(Tree<T> &t)
     t.root = NULL;
 }
 
-/*template <typename T>
-Tree<T> insert(Tree<T> &tr, T itemList, Knapsack knapsack)
-{
-    Node<T>* walker = new Node<T>;
-    walker = tr.root;
-    
-    bool moveRight = false;
-    int index = 0; //row
-    int noOfTotalNodes =  (pow(2, itemList.size()+1) - 1);
-    int count = 1;
-
-    //cout << index << endl;
-    //cout << noOfTotalNodes <<endl<<endl;
-    while( count <= noOfTotalNodes ) //supposed to be < or <=?
-    {
-        
-
-
-        Node<T>* newNode = new Node<T>;
-        //newNode->data  = NULL;
-        newNode->left  = NULL;
-        newNode->right = NULL;
-        newNode->parentNode = NULL;
-
-        //cout <<"Index " <<index << endl;
-        //cout << "count " <<count << endl;
-        //printItemVector(walker->data);
-        int cost=0;
-        int value=0;
-        for(int i=0; i<walker->data.size(); i++)
-        {
-            cost += walker->data[i].getCost();
-            value += walker->data[i].getValue();
-
-        }
-        if(cost<= knapsack.getLimit() && value >= tr.bestValue)
-        {
-            tr.bestSolution = walker->data;
-            tr.bestValue = value;
-        }
-
-
-        if(index==0 && (walker->left!=NULL) && (walker->right!=NULL))
-        {    
-            return tr;
-        }
-        else if ( moveRight && (walker->right!=NULL))
-        {
-            index--;
-            walker = walker->parentNode;
-            //move right is still true
-        }
-        else if ( moveRight )
-        {
-            newNode->parentNode = walker;
-            walker->right = newNode;
-            
-            T temp = walker->data;
-
-            walker = walker->right;
-            
-            walker->data = temp;
-            walker->data.push_back(itemList[index]);
-            
-            moveRight = false;
-            count++;
-            index++;
-            
-            //we also need to add new value in vector[index]
-        }
-        else if (walker->left == NULL && index < itemList.size())//index is < amount of items)
-        {
-            newNode->parentNode = walker;
-            walker->left = newNode;
-
-            T temp = walker->data;
-            walker = walker->left;
-            walker->data = temp; 
-            index++;
-            count++;
-        }
-        else if (index >= itemList.size())
-        {
-            //we need to move up a row
-            moveRight = true;
-            walker = walker->parentNode;
-            index--;
-        }
-        
-
-    }
-    
-    return tr;
-}*/
 template <typename T>
 Tree<T> insert(Tree<T> &trPr, T itemList, Knapsack knapsack)
 {
@@ -181,39 +87,18 @@ Tree<T> insert(Tree<T> &trPr, T itemList, Knapsack knapsack)
     int noOfTotalNodes =  (pow(2, itemList.size()+1) - 1);
     int count = 1;
 
-    //cout << index << endl;
-    //cout << "num of total nodes" << noOfTotalNodes <<endl<<endl;
-
-
-    /*float minimum = 0;
-
-    float minimums[3] = {knapsack.getHighestValue(), knapsack.getLowestCost(), knapsack.getValueCostRatio()};
-    for (int i = 0; i < 3; i++)
-    {
-        if(minimums[i] >= minimum)
-            minimum = minimums[i];
-    }    */
-
-    //cout << "Minimum: " << minimum;
-
     while( count <= noOfTotalNodes ) 
     {
         duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
-        if (duration > 600)
+        if (duration > 30)
             return trPr;
 
-        //float minimum = min(knapsack.getHighestValue(), knapsack.getLowestCost(), knapsack.getValueCostRatio());
 
         Node<T>* newNode = new Node<T>;
-        //newNode->data  = NULL;
         newNode->left  = NULL;
         newNode->right = NULL;
         newNode->parentNode = NULL;
-
-        //cout <<"Index " <<index << endl;
-        //cout << "count " <<count << endl;
-        //printItemVector(walker->data);
 
         int cost=0;
         int value=0;
@@ -223,48 +108,18 @@ Tree<T> insert(Tree<T> &trPr, T itemList, Knapsack knapsack)
         {
             cost += walker->data[i].getCost();
             value += walker->data[i].getValue();
-            //cout << "cost " << cost << endl;
-            //cout << "value " << value << endl;
+
 
         }
 
-
-        //this is for pruning based on greedyMin
-       /* int possibleVal = value;
-        for (int i = index; i < itemList.size(); i++)
-            possibleVal += itemList[i].getValue();
-
-*/
         if(cost <= knapsack.getLimit() && value >= trPr.bestValue)
         {
             trPr.bestSolution = walker->data;
             trPr.bestValue = value; 
-            //cout << "new best solution " << value << endl;
-
-            /*if (trPr.bestValue >= minimum)
-                minimum = trPr.bestValue;*/
         }
 
-        /*if(cost > knapsack.getLimit() || possibleVal < minimum)
-        {
-            count += (pow(2, (itemList.size()-index+1)) - 2);
-            index--;
-            walker = walker->parentNode; 
-            moveRight=true;
-            //cout << "prune the tree " << endl;
-        }*/
-
-
-
-        /*if(index==0 && (walker->left!=NULL) && (walker->right!=NULL))
-        {    
-            cout << "hello again" <<endl;
-            return tr;
-        }
-        else */
         if(index<=0 && (walker->left!=NULL) && (walker->right!=NULL))
         {    
-            //cout << walker->right << endl;
             trPr.isFinished = true;
             return trPr;
         }
@@ -272,7 +127,6 @@ Tree<T> insert(Tree<T> &trPr, T itemList, Knapsack knapsack)
         {
             index--;
             walker = walker->parentNode;
-            //move right is still true
         }
         else if ( moveRight )
         {
@@ -289,9 +143,8 @@ Tree<T> insert(Tree<T> &trPr, T itemList, Knapsack knapsack)
             moveRight = false;
             count++;
             index++;
-            //we also need to add new value in vector[index]
         }
-        else if (walker->left == NULL && index < itemList.size())//index is < amount of items)
+        else if (walker->left == NULL && index < itemList.size())//index is < amount of items
         {
             newNode->parentNode = walker;
             walker->left = newNode;
@@ -330,7 +183,6 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
 
     if (walker->right != NULL)
     {
-        //cout << "true" << endl;
         walker->right = NULL;
     }
 
@@ -339,10 +191,6 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
     int index = 0; //row
     int noOfTotalNodes =  (pow(2, itemList.size()+1) - 1);
     int count = 1;
-
-    //cout << index << endl;
-    //cout << "num of total nodes" << noOfTotalNodes <<endl<<endl;
-
 
     float minimum = 0;
 
@@ -353,9 +201,8 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
             minimum = minimums[i];
     }    
 
-    //cout << "Minimum: " << minimum;
 
-    while( count <= noOfTotalNodes ) //supposed to be < or <=?
+    while( count <= noOfTotalNodes )
     {
 
         duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
@@ -363,17 +210,10 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
         if (duration > 600)
             return trPr;
 
-        //float minimum = min(knapsack.getHighestValue(), knapsack.getLowestCost(), knapsack.getValueCostRatio());
-
         Node<T>* newNode = new Node<T>;
-        //newNode->data  = NULL;
         newNode->left  = NULL;
         newNode->right = NULL;
         newNode->parentNode = NULL;
-
-        //cout <<"Index " <<index << endl;
-        //cout << "count " <<count << endl;
-        //printItemVector(walker->data);
 
         int cost=0;
         int value=0;
@@ -383,9 +223,6 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
         {
             cost += walker->data[i].getCost();
             value += walker->data[i].getValue();
-            //cout << "cost " << cost << endl;
-            //cout << "value " << value << endl;
-
         }
 
 
@@ -395,37 +232,26 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
             possibleVal += itemList[i].getValue();
 
 
-        if(cost <= knapsack.getLimit() && value >= trPr.bestValue)
+        if(cost <= knapsack.getLimit() && value >= trPr.bestValue)//update new Best Solution
         {
             trPr.bestSolution = walker->data;
             trPr.bestValue = value; 
             trPr.bestValueCost = cost;
-            //cout << "new best solution " << value << endl;
 
             if (trPr.bestValue >= minimum)
                 minimum = trPr.bestValue;
         }
 
-        if(cost > knapsack.getLimit() || possibleVal < minimum)
+        if(cost > knapsack.getLimit() || possibleVal < minimum)//prune the tree
         {
             count += (pow(2, (itemList.size()-index+1)) - 2);
             index--;
             walker = walker->parentNode; 
             moveRight=true;
-            //cout << "prune the tree " << endl;
         }
 
-
-
-        /*if(index==0 && (walker->left!=NULL) && (walker->right!=NULL))
-        {    
-            cout << "hello again" <<endl;
-            return tr;
-        }
-        else */
         if(index<=0 && (walker->left!=NULL) && (walker->right!=NULL))
         {    
-            //cout << walker->right << endl;
             trPr.isFinished = true;
             return trPr;
         }
@@ -450,9 +276,8 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
             moveRight = false;
             count++;
             index++;
-            //we also need to add new value in vector[index]
         }
-        else if (walker->left == NULL && index < itemList.size())//index is < amount of items)
+        else if (walker->left == NULL && index < itemList.size())//index is < amount of items
         {
             newNode->parentNode = walker;
             walker->left = newNode;
@@ -477,8 +302,6 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
     return trPr;
 }
 
-// Return depth at which value appears
-//    or -1 if value is not in tree
 template <typename T>
 int contains(Tree<T> &t, T value)
 {
