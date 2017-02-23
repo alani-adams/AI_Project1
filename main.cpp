@@ -208,12 +208,12 @@ int main()
         cout << "Solution: " << bst.bestValue <<endl;
         printItemVector(bst.bestSolution);
 
+        duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
         std::cout<<"Time: "<< duration <<'\n';
         exTime=duration;
         cout << endl;
     }
    
-    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
     start = std::clock();
 
     //===========================PRUNING
@@ -239,7 +239,8 @@ int main()
     }
 
 
-   
+   //==================Output to file
+    
     
     ofstream myfile;
     myfile.open ("solution.txt");
