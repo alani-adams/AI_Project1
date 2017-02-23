@@ -45,7 +45,6 @@ Tree<vector <Item> > createTreePrune(vector<Item> items, Knapsack knapsack)
 {
     Tree<vector <Item> > bst1;
     initialize(bst1);
-    cout << "hi " << endl;
     return insertPrune(bst1, items, knapsack);
 }
 
@@ -108,41 +107,131 @@ int main()
 
     cout << endl << "Limit: " << knapsack.getLimit() << endl << endl;
 
-
-    Tree <vector <Item> > bst = createTree(items, knapsack);
-    cout << "Exhaustive: " << endl;
-    cout << "Solution: " << bst.bestValue <<endl;
-    printItemVector(bst.bestSolution);
-    cout << endl;
-
-    Tree <vector <Item> > bstPrune = createTreePrune(items, knapsack);
-    cout << "Tree Pruning: " << endl;
-    cout << "Solution: " << bstPrune.bestValue <<endl;
-    printItemVector(bstPrune.bestSolution);
-    cout << endl;
+    //===========================
+    float minimumVal = 0;
+    float minimumCost = 0;
 
 
     sort(items.begin(), items.end(), Knapsack::sortHighestValue);
     cout<<"Highest Value First: "<< endl;
-    //printItemVector(items);    
-    cout << "Solution: "<< Knapsack::calculateGreedySolution(items, knapsack) << endl << endl;
+    //printItemVector(items);
+    float a = Knapsack::calculateGreedySolution(items, knapsack);  
+    cout << "Solution: "<< a << endl << endl;
+    knapsack.setHighestValueTotal(a);
+
+    if(knapsack.getHighestValue() >= minimum)
+    {
+        minimumVal = knapsack.getHighestValue();
+        minimumCost = knapsack.getHighestValue();
+
+    }
+
+    //===========================
 
     sort(items.begin(), items.end(), Knapsack::sortLowestCost);
     cout<<"Lowest Cost First: "<<endl;
     //printItemVector(items);
-    cout << "Solution: "<< Knapsack::calculateGreedySolution(items, knapsack) << endl << endl;
+    float b = Knapsack::calculateGreedySolution(items, knapsack);
+    cout << "Solution: "<< b << endl << endl;
+    knapsack.setLowestCostTotal(b);
+
+    //===========================
 
     sort(items.begin(), items.end(), Knapsack::sortValueCostRatio);
     cout<<"Highest Ratio First: "<<endl;
     //printItemVector(items);
-    cout << "Solution: "<< Knapsack::calculateGreedySolution(items, knapsack) << endl << endl;
+    float c = Knapsack::calculateGreedySolution(items, knapsack);
+    cout << "Solution: "<< c << endl << endl;
+    knapsack.setValueCostRatioTotal(c);
+
+    //===========================
+
     
     sort(items.begin(), items.end(), Knapsack::sortPartialTotal);
     cout<<"Partial Knapsack: "<<endl;
     cout << "Solution: "<< Knapsack::calculatePartialKnapsackSolution(items, knapsack) << endl << endl;
     //printItemVector(items);
+
+
+    /*float minimums[3] = {knapsack.getHighestValue(), knapsack.getLowestCost(), knapsack.getValueCostRatio()};
+    for (int i = 0; i < 3; i++)
+    {
+        if(minimums[i] >= minimum)
+            minimum = minimums[i];
+    } */
+
+    //===========================EXHAUSTIVE
+    //===========================
+
+
+    sort(items.begin(), items.end(), Knapsack::sortByName);
+
+    std::clock_t start;
+    double duration;
+
+    start = std::clock();
+
+    double exTime = 0;
+    cout << "Running Exhaustive Search..." << endl;
+    Tree <vector <Item> > bst = createTree(items, knapsack);
+    if (!bst.isFinished)
+    {
+        cout << "Exhaustive Search exceeds 10 minutes. Stopping." << endl;
+        exTime = -1;
+    }
+    else
+    {
+        cout << "Exhaustive: " << endl;
+        cout << "Solution: " << bst.bestValue <<endl;
+        printItemVector(bst.bestSolution);
+
+        std::cout<<"Time: "<< duration <<'\n';
+        exTime=duration;
+        cout << endl;
+    }
+   
+    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+    start = std::clock();
+
+    //===========================PRUNING
+    //===========================
+
+    double prTime=0;
+
+    Tree <vector <Item> > bstPrune = createTreePrune(items, knapsack);
+    if (!bstPrune.isFinished)
+    {
+        cout << "Pruning Search exceeds 10 minutes. Stopping." << endl;
+        prTime = -1;
+    }
+    else
+    {    
+        cout << "Tree Pruning: " << endl;
+        cout << "Solution: " << bstPrune.bestValue <<endl;
+        printItemVector(bstPrune.bestSolution);
+
+        duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+        std::cout<<"Time: "<< duration <<'\n';
+        prTime=duration;
+    }
+
+
+   
     
-    //exhaustive search
+    ofstream myfile;
+    myfile.open ("solution.txt");
+    myfile << filename << "\n";
+    myfile << knapsack.getLimit() << endl;
+    myfile << minimum << ", " << cost;
+
+    //best greedy min
+    //best greedy max (partial)
+    //optimal solution (pruning)
+    //
+    myfile << exTime << endl;
+    myfile << prTime << endl;
+
+    myfile.close();
 
 
   

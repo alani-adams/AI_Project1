@@ -39,21 +39,31 @@ private:
     float highestValueTotal;
     float lowestCostTotal;
     float valueCostRatioTotal;
+    float highestValueTotalCost;
+    float lowestCostTotalCost;
+    float valueCostRatioTotalCost;
     float partialTotal;
     
 public:
     float getLimit() {return limit;}
     void setLimit(int a) {limit = a;}
-    void setHighestValueTotal (int a) {highestValueTotal = a;}
-    void setLowestCostTotal (int a) {lowestCostTotal = a;}
-    void setValueCostRatioTotal (int a) {valueCostRatioTotal = a;}
-    void setPartialTotal (int a) {partialTotal = a;}
+    void setHighestValueTotal (float a) {highestValueTotal = a;}
+    void setLowestCostTotal (float a) {lowestCostTotal = a;}
+    void setValueCostRatioTotal (float a) {valueCostRatioTotal = a;}
+    void setPartialTotal (float a) {partialTotal = a;}
+    float getHighestValue() {return highestValueTotal;}
+    float getLowestCost() {return lowestCostTotal;}
+    float getValueCostRatio() {return valueCostRatioTotal;}
+    float getHighestValueCost() {return highestValueTotalCost;}
+    float getLowestCostCost() {return lowestCostTotalCost;}
+    float getValueCostRatioCost() {return valueCostRatioTotalCost;}
 
     //http://www.cplusplus.com/reference/algorithm/sort/
     static bool sortHighestValue(Item i, Item j) { return (i.getValue() > j.getValue());}
     static bool sortLowestCost(Item i, Item j) { return (i.getCost() < j.getCost());}
     static bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
     static bool sortPartialTotal(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}
+    static bool sortByName(Item i, Item j) {return ((int)i.getName()[0] < (int)j.getName()[0]);}
 
     static float calculateGreedySolution(vector<Item> v, Knapsack k){
 
