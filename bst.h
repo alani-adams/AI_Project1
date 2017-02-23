@@ -91,7 +91,7 @@ Tree<T> insert(Tree<T> &trPr, T itemList, Knapsack knapsack)
     {
         duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
-        if (duration > 30)
+        if (duration > 600)
             return trPr;
 
 
