@@ -2,8 +2,8 @@
 //  main.cpp
 //  AI_Project1
 //
-//  Created by Alani Peters on 1/19/17.
-//  Copyright © 2017 Alani Peters. All rights reserved.
+//  Created by Alani Peters and Cole Spears on 1/19/17.
+//  Copyright © 2017 Peters and Spears. All rights reserved.
 //
 
 #include <iostream>
@@ -18,21 +18,11 @@
 #include <math.h>
 #include <cmath>
 
-
-
 #include "Header.h"
 #include "bst.h"
 
 using namespace std;
 
-/*void printItemVector(vector<Item> items)
-{
-    for (int i=0; i < items.size(); i++){
-        cout << "Name: " << items[i].getName() << " Cost:" << items[i].getCost() << " Value: " << items[i].getValue() << endl;
-    }
-}*/
-
-//template <typename T>
 Tree<vector <Item> > createTree(vector<Item> items, Knapsack knapsack)
 {
     Tree<vector <Item> > bst1;
@@ -220,6 +210,7 @@ int main()
     //===========================
 
     double prTime=0;
+    double prOpTime = 0;
 
     Tree <vector <Item> > bstPrune = createTreePrune(items, knapsack);
     if (!bstPrune.isFinished)
@@ -238,16 +229,38 @@ int main()
         prTime=duration;
     }
 
+    cout << endl;
+    start = std::clock();
+
+    //==================Pruning with Optimization
+    sort(items.begin(), items.end(), Knapsack::sortValueCostRatio);
+
+    Tree <vector <Item> > bstPruneOpt = createTreePrune(items, knapsack);
+    if (!bstPruneOpt.isFinished)
+    {
+        cout << "Pruning Search exceeds 10 minutes. Stopping." << endl;
+        prTime = -1;
+    }
+    else
+    {    
+        cout << "Tree Pruning Optimization: " << endl;
+        cout << "Solution: " << bstPruneOpt.bestValue <<endl;
+        printItemVector(bstPrune.bestSolution);
+
+        duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+        std::cout<<"Time: "<< duration <<'\n';
+        prOpTime=duration;
+    }
 
    //==================Output to file
     
     
     ofstream myfile;
     myfile.open ("solution.txt");
-    myfile << filename << "\n";
-    myfile << knapsack.getLimit() << endl;
+    myfile << "Filename: " << filename << "\n";
+    myfile << "Knapsack Limit: " << knapsack.getLimit() << endl;
     //best greedy min
-    myfile << minimumVal << "," << minimumCost;
+    myfile << "Best Greedy Minimum: " << minimumVal << "," << minimumCost;
     sort(minItems.begin(), minItems.end(), Knapsack::sortByName);
     for(int i=0; i<minItems.size(); i++)
     {
@@ -255,7 +268,7 @@ int main()
     }
     myfile << endl;
     //best greedy max (partial)
-    myfile << knapsack.getPartialTotal() << "," << knapsack.getLimit();
+    myfile << "Best Greedy Maximum: " << knapsack.getPartialTotal() << "," << knapsack.getLimit();
     vector<Item> partialItems = knapsack.getPartialItems();
     sort(partialItems.begin(), partialItems.end(), Knapsack::sortByName);
     for(int i=0; i<partialItems.size(); i++)
@@ -265,33 +278,16 @@ int main()
     myfile << endl;
     
     //optimal solution (pruning)
-    myfile << bstPrune.bestValue << "," << bstPrune.bestValueCost;
+    myfile << "Optimal Solution: " << bstPrune.bestValue << "," << bstPrune.bestValueCost;
     for(int i=0; i<bstPrune.bestSolution.size(); i++)
     {
         myfile << "," << bstPrune.bestSolution[i].getName();
     }
     myfile << endl;
 
-    myfile << exTime << endl;
-    myfile << prTime << endl;
+    myfile << "Exhaustive Search Time: " << exTime << endl;
+    myfile << "Regular Pruning Time: " << prTime << endl;
+    myfile << "Pruning with Optimization Time: " << prOpTime << endl;
 
     myfile.close();
-
-
-  
-
-
-
-   //destroy(bst);
- /* HOW TO DO A TIMER 
-    std::clock_t start;
-    double duration;
-
-    start = std::clock();
-
-    //Your algorithm here
-    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-
-    std::cout<<"printf: "<< duration <<'\n';
- */
 }

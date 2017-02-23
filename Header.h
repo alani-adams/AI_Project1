@@ -2,9 +2,10 @@
 //  Header.h
 //  AI_Project1
 //
-//  Created by Alani Peters on 1/19/17.
-//  Copyright © 2017 Alani Peters. All rights reserved.
+//  Created by Alani Peters and Cole Spears on 1/19/17.
+//  Copyright © 2017 Peters and Spears. All rights reserved.
 //
+
 #include <string>
 #include <iostream>
 #include <sstream>
