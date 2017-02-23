@@ -19,6 +19,7 @@ struct Tree {
     Node<T>* root; // Pointer to topmost (root) node
     vector<Item> bestSolution;
     float bestValue;
+    float bestValueCost;
     bool isFinished;
 };
 
@@ -195,7 +196,7 @@ Tree<T> insert(Tree<T> &trPr, T itemList, Knapsack knapsack)
 
     //cout << "Minimum: " << minimum;
 
-    while( count <= noOfTotalNodes ) //supposed to be < or <=?
+    while( count <= noOfTotalNodes ) 
     {
         duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 
@@ -398,6 +399,7 @@ Tree<T> insertPrune(Tree<T> &trPr, T itemList, Knapsack knapsack)
         {
             trPr.bestSolution = walker->data;
             trPr.bestValue = value; 
+            trPr.bestValueCost = cost;
             //cout << "new best solution " << value << endl;
 
             if (trPr.bestValue >= minimum)
