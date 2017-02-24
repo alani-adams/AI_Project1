@@ -2,13 +2,16 @@
 # Alani Peters and Cole Spears
 
 Navigate to the root directory. To compile on Mac:
+	
 	g++ main.cpp
 
 To run it:
+	
 	./a.out
 
 Example files are located in the root directory. 
 When asked for input file options include:
+	
 	k05.csv
 	k10.csv
 	k24.csv
