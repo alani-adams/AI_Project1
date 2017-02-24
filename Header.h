@@ -65,8 +65,6 @@ public:
     void setLowestCostCost(float a) { lowestCostTotalCost = a;}
     void setValueCostRatioCost(float a) { valueCostRatioTotalCost = a;}
     void setPartialCost (float a) {partialTotal = a;}
-
-
     //set Items
     void setValueCostRatioItems(vector<Item> a) { valueCostRatioItems = a;}
     void setHighestValueItems(vector<Item> a) { highestValueItems = a;}
@@ -74,18 +72,16 @@ public:
     void setPartialItems(vector<Item> a) { partialItems = a;}
 
 
-
+    //get Value
     float getHighestValue() {return highestValueTotal;}
     float getLowestCost() {return lowestCostTotal;}
     float getValueCostRatio() {return valueCostRatioTotal;}
     float getPartialTotal() {return partialTotal;}
-
     //get Cost
     float getHighestValueCost() {return highestValueTotalCost;}
     float getLowestCostCost() {return lowestCostTotalCost;}
     float getValueCostRatioCost() {return valueCostRatioTotalCost;}
     float getPartialCost() {return partialTotalCost;}
-
     //get Items
     vector<Item> getValueCostRatioItems() { return valueCostRatioItems;}
     vector<Item> getHighestValueItems() { return highestValueItems;}
@@ -93,7 +89,6 @@ public:
     vector<Item> getPartialItems() { return partialItems;}
 
 
-    //http://www.cplusplus.com/reference/algorithm/sort/
     static bool sortHighestValue(Item i, Item j) { return (i.getValue() > j.getValue());}
     static bool sortLowestCost(Item i, Item j) { return (i.getCost() < j.getCost());}
     static bool sortValueCostRatio(Item i, Item j) { return (((float)(i.getValue() / i.getCost()) > (float)(j.getValue() / j.getCost())));}

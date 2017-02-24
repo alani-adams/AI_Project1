@@ -61,7 +61,6 @@ int main()
         
         while(getline(fs, line1))//get all the items
         {
-            
             std::istringstream ss(line1);
             std::string token;
             int count=0;
@@ -71,24 +70,18 @@ int main()
             string i;
             while(getline(ss, token, ','))
             {
-                
                 if(count==0)
                     name=token;
                 else if(count==1)
                     cost=token;
                 else
                     value=token;
-                
                 count++;
             }
-            
-            //cout<<"name "<<name<<endl;
             temp.setName(name);
             int cost1 = atoi(cost.c_str());
-            //cout<<"cost "<<cost1<<endl;
             temp.setCost(cost1);
             int value1 = atoi(value.c_str());
-            //cout<<"value "<<value1<<endl;
             temp.setValue(value1);
             items.push_back(temp);
         }
@@ -98,6 +91,7 @@ int main()
     cout << endl << "Limit: " << knapsack.getLimit() << endl << endl;
 
     //===========================
+
     float minimumVal = 0;
     float minimumCost = 0;
     float minimum = 0;
@@ -107,7 +101,6 @@ int main()
 
     sort(items.begin(), items.end(), Knapsack::sortHighestValue);
     cout<<"Highest Value First: "<< endl;
-    //printItemVector(items);
     float a = Knapsack::calculateGreedySolution(items, knapsack, false, true, false);  
     cout << "Solution: "<< a << endl << endl;
     knapsack.setHighestValueTotal(a);
@@ -126,7 +119,6 @@ int main()
 
     sort(items.begin(), items.end(), Knapsack::sortLowestCost);
     cout<<"Lowest Cost First: "<<endl;
-    //printItemVector(items);
     float b = Knapsack::calculateGreedySolution(items, knapsack, false, false, true);
     cout << "Solution: "<< b << endl << endl;
     knapsack.setLowestCostTotal(b);
@@ -139,12 +131,13 @@ int main()
         minItems = knapsack.getLowestCostItems();
 
     }
+
     //===========================
+
     bool valueCostRatioMin = false;
 
     sort(items.begin(), items.end(), Knapsack::sortValueCostRatio);
     cout<<"Highest Ratio First: "<<endl;
-    //printItemVector(items);
     float c = Knapsack::calculateGreedySolution(items, knapsack, true, false, false);
     cout << "Solution: "<< c << endl << endl;
     knapsack.setValueCostRatioTotal(c);
@@ -157,23 +150,15 @@ int main()
         minItems = knapsack.getValueCostRatioItems();
 
     }
-    //===========================
 
+    //===========================
     
     sort(items.begin(), items.end(), Knapsack::sortPartialTotal);
     cout<<"Partial Knapsack: "<<endl;
     cout << "Solution: "<< Knapsack::calculatePartialKnapsackSolution(items, knapsack) << endl << endl;
-    //printItemVector(items);
 
 
-    /*float minimums[3] = {knapsack.getHighestValue(), knapsack.getLowestCost(), knapsack.getValueCostRatio()};
-    for (int i = 0; i < 3; i++)
-    {
-        if(minimums[i] >= minimum)
-            minimum = minimums[i];
-    } */
-
-    //===========================EXHAUSTIVE
+    //===========================
     //===========================
 
 
@@ -206,7 +191,7 @@ int main()
    
     start = std::clock();
 
-    //===========================PRUNING
+    //===========================
     //===========================
 
     double prTime=0;
@@ -232,7 +217,8 @@ int main()
     cout << endl;
     start = std::clock();
 
-    //==================Pruning with Optimization
+    //==========================
+
     sort(items.begin(), items.end(), Knapsack::sortValueCostRatio);
 
     Tree <vector <Item> > bstPruneOpt = createTreePrune(items, knapsack);
@@ -252,8 +238,7 @@ int main()
         prOpTime=duration;
     }
 
-   //==================Output to file
-    
+   //===========================
     
     ofstream myfile;
     myfile.open ("solution.txt");
